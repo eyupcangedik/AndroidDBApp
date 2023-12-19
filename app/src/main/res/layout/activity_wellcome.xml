@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".WellcomeActivity">
 
+    <Button
+        android:id="@+id/btn_ViewUsers"
+        android:layout_width="218dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#26B13D"
+        android:backgroundTintMode="multiply"
+        android:fontFamily="sans-serif"
+        android:shadowColor="#FF0000"
+        android:text="View All Users"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Wellcome" />
+
     <TextView
         android:id="@+id/tv_Wellcome"
         android:layout_width="wrap_content"

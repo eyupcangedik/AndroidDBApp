@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class WellcomeActivity extends AppCompatActivity {
 
     TextView tvWellcome;
-    Button btnReset;
+    Button btnReset, btnViewUsers;
 
     DatabaseHelper database;
     @Override
@@ -24,15 +24,29 @@ public class WellcomeActivity extends AppCompatActivity {
 
         tvWellcome = findViewById(R.id.tv_Wellcome);
         btnReset = findViewById(R.id.btn_Reset);
+        btnViewUsers = findViewById(R.id.btn_ViewUsers);
 
         String username = getIntent().getStringExtra("USERNAME");
-
+        if(username.equals("admin")){
+            btnReset.setVisibility(View.VISIBLE);
+        }
+        else {
+            btnReset.setVisibility(View.INVISIBLE);
+        }
         tvWellcome.setText("Hoşgeldin " +username);
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
               showYesNoMessageBox("Veriler silinecek emin misiniz?");
+            }
+        });
+
+        btnViewUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(WellcomeActivity.this, ViewUsersActivity.class);
+                startActivity(i);
             }
         });
     }
