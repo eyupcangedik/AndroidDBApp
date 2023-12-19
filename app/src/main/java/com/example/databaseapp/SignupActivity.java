@@ -51,12 +51,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(phone)){
                     databaseHelper = new DatabaseHelper(SignupActivity.this);
-                    if(databaseHelper.insertUser(email,username,password,phone)){
-                        Toast.makeText(SignupActivity.this , "Kayıt başarıyla oluşturuldu.", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(SignupActivity.this , "Kayıt oluşturma başarısız.", Toast.LENGTH_SHORT).show();
-                    }
+                    String result = databaseHelper.insertUser(email,username,password,phone);
+                    Toast.makeText(SignupActivity.this, result, Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(SignupActivity.this, "Bütün alanlar doldurulmalıdır !!!", Toast.LENGTH_SHORT).show();

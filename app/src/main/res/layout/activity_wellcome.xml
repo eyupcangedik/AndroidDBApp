@@ -19,6 +19,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Wellcome" />
 
@@ -29,18 +30,16 @@
         android:fontFamily="sans-serif-black"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_ViewUsers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_Reset" />
 
     <Button
         android:id="@+id/btn_Reset"
         android:layout_width="218dp"
         android:layout_height="55dp"
-        android:layout_marginTop="152dp"
         android:backgroundTint="#FF0000"
         android:backgroundTintMode="multiply"
         android:fontFamily="sans-serif"
@@ -50,8 +49,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_Wellcome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

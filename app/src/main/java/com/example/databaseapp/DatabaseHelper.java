@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -43,32 +44,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public boolean insertUser(String email, String username, String password, String phone) {
+    public String insertUser(String email, String username, String password, String phone) {
 
-        this.database = getWritableDatabase();
-
-        String query = "select * from " + TABLE_NAME;
-        Cursor cursor = database.rawQuery(query,null);
-        int id = cursor.getCount();
-
-        ContentValues value = new ContentValues();
-        value.put(COL_ID, id+1);
-        value.put(COL_EMAIL, email);
-        value.put(COL_USERNAME, username);
-        value.put(COL_PASSWORD, password);
-        value.put(COL_PHONE, phone);
-
-        Long result = database.insert(TABLE_NAME, null, value);
-
-        database.close();
-
-        if(result == -1){
-            return false;
+        String findResult = findUser(username);
+        if(!findResult.equals("")) {
+            return username + " kullanıcısı zaten mevcut.";
         }
+            this.database = getWritableDatabase();
 
-        else{
-            return true;
-        }
+            String query = "select * from " + TABLE_NAME;
+            Cursor cursor = database.rawQuery(query, null);
+            int id = cursor.getCount();
+
+            ContentValues value = new ContentValues();
+            value.put(COL_ID, id + 1);
+            value.put(COL_EMAIL, email);
+            value.put(COL_USERNAME, username);
+            value.put(COL_PASSWORD, password);
+            value.put(COL_PHONE, phone);
+
+            Long result = database.insert(TABLE_NAME, null, value);
+
+            database.close();
+
+            if (result == -1) {
+                return "HATA: Kayıt Eklenemedi!";
+            } else {
+                return "Kayıt başarıyla oluşturuldu.";
+            }
     }
 
         public String findUser(String username) {
@@ -89,7 +92,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int resetDatabase(){
         this.database = getReadableDatabase();
-        int result = database.delete(TABLE_NAME,null,null);
+        //int result = database.delete(TABLE_NAME,null,null);
+
+        int result;
+        String query = "Delete From " + TABLE_NAME + " WHERE USERNAME != 'admin'";
+
+        Cursor cursor = database.rawQuery(query,null);
+        if (cursor != null && cursor.moveToFirst()) {
+            result = -1;
+        }
+
+        else{
+            result = 1;
+        }
 
         return result;
     }
@@ -108,6 +123,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         database.close();
-        return  userList;
+        return userList;
+    }
+
+    public List<String> userData(String username){
+        this.database = getReadableDatabase();
+        
+        String query = "Select * From " + TABLE_NAME + " WHERE USERNAME='" + username+"'";
+
+        Cursor cursor = database.rawQuery(query,null);
+        ArrayList<String> userDataList = new ArrayList<String>();
+
+        if(cursor.moveToFirst()){
+            do{
+                userDataList.add("ID: " + cursor.getString(0));
+                userDataList.add("Username: " + cursor.getString(1));
+                userDataList.add("Password: "+ cursor.getString(2));
+                userDataList.add("Email: "+ cursor.getString(3));
+                userDataList.add("PhoneNumber: "+ cursor.getString(4));
+            }while(cursor.moveToNext());
+        }
+
+        database.close();
+        return userDataList;
     }
 }

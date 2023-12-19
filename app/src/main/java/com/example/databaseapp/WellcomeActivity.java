@@ -15,12 +15,12 @@ public class WellcomeActivity extends AppCompatActivity {
 
     TextView tvWellcome;
     Button btnReset, btnViewUsers;
-
     DatabaseHelper database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wellcome);
+
 
         tvWellcome = findViewById(R.id.tv_Wellcome);
         btnReset = findViewById(R.id.btn_Reset);
